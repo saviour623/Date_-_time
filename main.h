@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#define hour_12(x, y)(y = x > 11 ? x - 12 : x )
 #define UNUSED void(*)(x)
 #define ST_LINE "\e[1;1H\e[2J"
 #define clr() fprintf(stdout, ST_LINE) //clear screen
@@ -19,8 +20,14 @@ struct stop_clock {
 	int day;
 };
 
+struct alarm {
+	int mins;
+	int hour;
+	char *msg;
+};
 /* prototypes */
-void time_clock(struct stop_clock *, const int);
+void time_clock(struct stop_clock *, const int, const int);
+void watch_alarm(struct alarm *);
 char *week_days(int, char *);
 char *check_month(int, size_t *, char *);
 int day_div(int);
@@ -123,7 +130,7 @@ int day_div(int day){
 	return -1;
 }
 /* time function */
-void time_clock(struct stop_clock *tp, const int def){
+void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 
 	char *lp;
 	lp = " ";
@@ -132,7 +139,7 @@ void time_clock(struct stop_clock *tp, const int def){
 	size_t month_ays[2];
 	size_t day_count = 1; /* Count days in month */
 	int year, month;
-	int day, hour;
+	int day, hour, hour_type;
 	int mins, secs;
 
 	int i;
@@ -166,7 +173,7 @@ void time_clock(struct stop_clock *tp, const int def){
 		month = p->tm_mon + 1;
 		year = p->tm_year + 1900;
 	}
-
+	hour_type = 0;
 	day = day_div(day);
 	day_str = week_days(day, day_str);
 	month_str = check_month(month, month_ays, month_str);
@@ -179,10 +186,12 @@ void time_clock(struct stop_clock *tp, const int def){
 				*month_ays = 29;
 		}
 		for (; hour < 24; hour++){
+			if (clock_type == 12)
+				hour_12(hour, hour_type);
 			s = (hour > 11) ? "PM" : "AM";
 			for(; (secs, mins) < 60; secs++){
 				clr();
-				printf("| %s - %s - %d%s| %02d : %02d : %02d %s |\n", day_str, month_str, year, lp, hour, mins, secs, s);
+				printf("| %s - %s - %d%s| %02d : %02d : %02d %s |", day_str, month_str, year, lp, hour_type, mins, secs, s);
 				fflush(stdout);
 				if (secs == 59){
 					mins += 1;
@@ -214,4 +223,61 @@ void time_clock(struct stop_clock *tp, const int def){
 	}
 }
 
+void watch_alarm(struct alarm *al){
+	int mins;
+	int secs;
+	int hour;
+
+
+	struct tm *p;
+	time_t timep;
+	timep = time(NULL);
+	p = localtime(&timep);
+
+	secs = p->tm_sec;
+	mins = p->tm_min;
+	hour = p->tm_hour + 1;
+
+	int hr_store = hour;
+	int hr_count = 0;
+	while (hr_store != al->hour){
+		if (hr_store == 23)
+			hr_store = -1;
+		hr_count += 1;
+		hr_store += 1;
+	}
+	int mins_count = 0;
+	int mins_store = mins;
+	for (; mins_store != al->mins; mins_store++){
+		if (mins_store == 59)
+			mins_store = -1;
+		mins_count += 1;
+	}
+	printf("[Alarm is set for %02d hours %02d minutes]\n", hr_count, mins_count);
+	fflush(stdout); sleep(3);
+
+	for (; hour < 24; hour++){
+		for (; secs < 60; secs++){
+			clr();
+			if (hour == al->hour && mins == al->mins){
+				printf("[ALARM - %d : %d]\n %s\n", hr_store, mins_store,  al->msg);
+				exit(EXIT_SUCCESS);
+			}
+			printf("| %02d : %02d : %02d |", hour, mins, secs);
+			fflush(stdout);
+			sleep(1);
+			if (secs == 59){
+				mins += 1;
+				secs = -1;
+			}
+			if (mins == 59){
+				mins = 0;
+				break;
+			}
+		}
+		secs = 0;
+		if (hour == 23)
+			hour = 0;
+	}
+}
 #endif /* MAIN_H */
