@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef CLI_SYS_TIME_H
+#define CLI_SYS_TIME_H
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
@@ -280,4 +280,4 @@ void watch_alarm(struct alarm *al){
 			hour = 0;
 	}
 }
-#endif /* MAIN_H */
+#endif /* CLI_SYS_TIME_H */
