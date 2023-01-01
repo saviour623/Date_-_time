@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define hour_12(x, y)(y = x > 11 ? x - 12 : x )
+#define hour_12(x, y)(y = x > 12 ? x - 12 : x )
 #define UNUSED void(*)(x)
 #define ST_LINE "\e[1;1H\e[2J"
 #define clr() fprintf(stdout, ST_LINE) //clear screen
@@ -34,29 +34,29 @@ int day_div(int);
 
 char *week_days(int x, char *str){
 	switch (x){
-	case 4:
+	case 1:
 		str = "Sun";
 		break;
-	case 5:
+	case 2:
 		str = "Mon";
 		break;
-	case 6:
+	case 3:
 		str = "Tue";
 		break;
-	case 7:
+	case 4:
 		str = "Wed";
 		break;
-	case 1:
+	case 5:
 		str = "Thu";
 		break;
-	case 2:
+	case 6:
 		str = "Fri";
 		break;
-	case 3:
+	case 7:
 		str = "Sat";
 		break;
 	default:
-		fprintf(stderr, "Invalid input for \"day\"!!\n");
+		fprintf(stderr, "\nInvalid input for \"day\"!!\n");
 		exit(EXIT_FAILURE);
 	}
 	return str;
@@ -113,7 +113,7 @@ char *check_month(int check_nt, size_t *x, char *s){
 		*x = 31;
 		break;
 	default:
-		fprintf(stderr, "Invalid choice for year\n");
+		fprintf(stderr, "\nInvalid choice for month\n");
 		exit(EXIT_FAILURE);
 	}
 	return s;
@@ -125,9 +125,8 @@ int day_div(int day){
 	for (i = 0; i < 4; i++){
 		if (!(day < 7 || day == 7))
 			day -= 7;
-		else return day;
 	}
-	return -1;
+	return day;
 }
 /* time function */
 void time_clock(struct stop_clock *tp, const int def, const int clock_type){
@@ -150,7 +149,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 		sleep(1);
 	}
 
-	if (def == 0){
+	if (!def){
 		secs = tp->secs;
 		mins = tp->mins;
 		hour = tp->hour;
@@ -173,6 +172,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 		month = p->tm_mon + 1;
 		year = p->tm_year + 1900;
 	}
+
 	hour_type = 0;
 	day = day_div(day);
 	day_str = week_days(day, day_str);
@@ -181,17 +181,18 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 	for (; month <= 12; month++){
 		month_str = check_month(month, month_ays, month_str);
 		if (!(year % 4)){
-			lp = "lp ";
+			lp = "(leap) ";
 			if (month == 2)
 				*month_ays = 29;
 		}
+
 		for (; hour < 24; hour++){
 			if (clock_type == 12)
 				hour_12(hour, hour_type);
 			s = (hour > 11) ? "PM" : "AM";
 			for(; (secs, mins) < 60; secs++){
 				clr();
-				printf("| %s - %s - %d%s| %02d : %02d : %02d %s |", day_str, month_str, year, lp, hour_type, mins, secs, s);
+				printf("|%s - %02d, %s - %d%s| %02d : %02d : %02d %s |", day_str, day_count, month_str, year, lp, hour_type, mins, secs, s);
 				fflush(stdout);
 				if (secs == 59){
 					mins += 1;
@@ -202,7 +203,6 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 			secs = 0, mins = 0;
 
 			if (hour == 23){
-				day_count += 1;
 				day += 1, reset(day);
 				day_str = week_days(day, day_str);
 
@@ -210,7 +210,10 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 					reset(day_count);
 					break;
 				}
-				else hour = -1;
+				if (day_count != *month_ays){
+					day_count += 1;
+					hour = -1;
+				}
 			}
 		}
 		hour = 0;
