@@ -115,7 +115,7 @@ void watch_alarm(struct alarm *);
      };
 ```
 
-` Note: ` Passing a variable to the watch_alarm function which was declared with a user-defined struct type aside the program's defined structure type, would result in an abnormal behaviour of the program and possibly invoke an unexpected termination of the program.
+` Note: ` Passing a variable to the watch_alarm function, declared with a user-defined struct type aside the program's defined structure type, would result in an abnormal behaviour of the program and possibly invoke an unexpected termination of the program.
 ``` C
 /* USAGE */
    	 struct alarm var;
@@ -130,5 +130,5 @@ void watch_alarm(struct alarm *);
 -	Note that this program could be system/compiler dependent (Successfully compiled with gcc/ARM 64bit/ubuntu 14 O.S). However, this could be resolved by simple modification to the provided source code.
 -	The precision of the outputed time at runtime may be dalayed by several milliseconds compared to the actual system time due to changes in timezone, redundancy in execution of program or incorrect system date and time(as program is completely dependent on the system's localtime, i.e, if specified by user).
 
-Author: saviour623@github.com
+Author: github.com/saviour623
 Contact: saviourme33@gmail.com
