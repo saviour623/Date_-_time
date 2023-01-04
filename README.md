@@ -51,7 +51,7 @@ The last argument of the time_clock, specifies the clock format. This program on
 ``` C {
       /*USAGE*/
       struct stop_clock var;
-      time_stock(&var, 1, 12); /* System defined 12hr clock */
+      time_clock(&var, 1, 12); /* System defined 12hr clock */
 
       /* or */
       var->secs = 0;
@@ -60,7 +60,7 @@ The last argument of the time_clock, specifies the clock format. This program on
       var->year = 2000;
       var->month = 1;
       var->day = 1;
-      time_stock(&var, 0, 24); /* User-defined 24hr clock */
+      time_clock(&var, 0, 24); /* User-defined 24hr clock */
       }
 ```
 ### OTHER FUNCTIONS
