@@ -13,7 +13,7 @@ Note: In order to use this features, this header must be present in the current 
 	int month;
 	int day;
 	}; 
-} ~~~
+```} 
 
 Time setting is collected using a predefined struct "stop_clock" of format :-
 ``` C   int secs;
