@@ -26,7 +26,7 @@ int day;
 ```
 <div align="left"> A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function. </div>
 
-## TIME_CLOCK
+### TIME_CLOCK
 ``` C
  void time_clock(struct stop_clock *, const int, const int);
 ```
@@ -126,9 +126,9 @@ void watch_alarm(struct alarm *);
 /*...*/
 ```
 
-## GENERAL INFO:
+### GENERAL INFO:
 -	Note that this program could be system/compiler dependent (Successfully compiled with gcc/ARM 64bit/ubuntu 14 O.S). However, this could be resolved by simple modification to the provided source code.
 -	The precision of the outputed time at runtime may be dalayed by several milliseconds compared to the actual system time due to changes in timezone, redundancy in execution of program or incorrect system date and time(as program is completely dependent on the system's localtime, i.e, if specified by user).
 
-Author: github.com/saviour623
+Author: saviour623@github.com
 Contact: saviourme33@gmail.com
