@@ -3,7 +3,7 @@ This is a Simple C header program that set and run time and date independently o
 Note: In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
 
 ### STOP_CLOCK
-#### prototype:
+#### prototype:\
 	struct stop_clock {
 	int secs;
 	int mins;
