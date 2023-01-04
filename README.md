@@ -2,8 +2,8 @@
 This is a Simple C header program that set and run time and date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
 Note: In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
 
-## STOP_CLOCK
-        #### prototype:
+### STOP_CLOCK
+#### prototype:
 	struct stop_clock {
 	int secs;
 	int mins;
@@ -25,16 +25,15 @@ Time setting is collected using a predefined struct "stop_clock" of format:\
 
 ## TIME_CLOCK:
 #### prototype:
-#####    void time_clock(struct stop_clock *, const int, const int);
+######    void time_clock(struct stop_clock *, const int, const int);
 
 The time_clock function accepts three arguments of types struct *, const int and  const int.
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
 Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing 0 (initialize user-defined time) or 1 (initialize system time which uses default device local time) as the next argument of time_clock function.
-####Note:
+#### Note:
 	The value of the above argument must either be 1 or 0 else behaviour of time_clock will be undefined.
-
 The last argument of the time_clock, specifies the clock type. This program only identifies two clock format, 12hr & 24hr clock format, which could be specified by passing either 12 or 24 to the parameter.
-####Note:
+#### Note:
 	Any other value aside the ones specified above will incur an error message and terminate the program.
 	The time_clock considers leap years in date. In output, the character, 'x' is attached to the end of the value, year, to signify that it is a leap year.
 	The user-defined value for year must range from 2000 and above. Threfore, any input below 2000 will incur program error and terminate consecutively.
@@ -51,10 +50,10 @@ The last argument of the time_clock, specifies the clock type. This program only
       var->month = 1;
       var->day = 1;
       time_stock(&var, 0, 24); /* User-defined 24hr clock */
-##OTHER FUNCTIONS
+### OTHER FUNCTIONS
 
-###   WEEK_ROTATE
-####  prototype:
+####   WEEK_ROTATE
+######  prototype:
 	void week_rotate(int, int, int rot[]);
       This function basically rotates an array. week_rotate is used to reshuffle week_days according to changes in month. e.g if tuesday is the last day of january, i.e, 31st, the array of week days(1...7) will be rotated to make the next day(wednesday) the 1st day of the week of the next month.
       First argument of the week_rotate function takes in n number of times to rotate array (usually the last day of the month in week positíon).
