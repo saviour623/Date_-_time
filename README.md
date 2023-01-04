@@ -1,7 +1,7 @@
 # <div align="center"> CLI_SYS_TIME.H </div>
-This is a Simple C header program that set and run time and date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
+This is a Simple C program that sets and run time/date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
 
-` Note: ` In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
+` Note: ` In order to use this features, this header file must be present in the current directory and manually added to the C program as a user defined header.
 
 ### STOP_CLOCK
 #### Prototype:
@@ -36,11 +36,11 @@ The time_clock function accepts three arguments of types ` struct * `, ` const i
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
 
 Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing ` 0 ` (initialize user-defined time) or ` 1 ` (initialize system time which uses default device local time) as the next argument of time_clock function.
-#### Note :-
+` Note :- `
 * The value of the above argument must either be ` 1 ` or ` 0 ` else behaviour of time_clock will be undefined.
 ***
 The last argument of the time_clock, specifies the clock format. This program only identifies two clock format, ` 12hr & 24hr clock format `, which could be specified by passing either ` 12 ` or ` 24 ` to the parameter.
-#### Note :-
+` Note :- `
 *	Any other value aside the ones specified above will incur an error message and terminate the program.
 *	The time_clock considers leap years in date. In output, the character, ` x ` is attached to the end of the value, year, to signify that it is a leap year.
 *	The user-defined value for year must range from ` 2000, ... `. Threfore, any input below 2000 will incur program error and terminate consecutively.
