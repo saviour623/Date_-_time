@@ -1,6 +1,6 @@
 # <div align="center"> CLI_SYS_TIME.H </div>
 This is a Simple C header program that set and run time and date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
-Note: In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
+<p> == Note == In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header. </p>
 
 ### STOP_CLOCK
 #### Prototype:
@@ -12,20 +12,23 @@ struct stop_clock {
 	int year;
 	int month;
 	int day;
-	}; ```
-
-Time setting is collected using a predefined struct "stop_clock" of format :-
-``` C   int secs;
-	int mins;
-	int hour;
-	int year;
-	int month;
-	int day; ```
-
+	};
+ ```
+Time setting is collected using a predefined struct `stop_clock` of format :-
+``` C
+int secs;
+int mins;
+int hour;
+int year;
+int month;
+int day; 
+```
 <div align="left"> A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function. </div>
 
 ## TIME_CLOCK
-###### _Prototype: void time_clock(struct stop_clock *, const int, const int);_
+``` C
+ void time_clock(struct stop_clock *, const int, const int);_ 
+```
 
 The time_clock function accepts three arguments of types ==struct *==, ==const int == and  == const int ==.
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
@@ -40,7 +43,7 @@ The last argument of the time_clock, specifies the clock format. This program on
 ***
 
 ``` C {
-     /*USAGE*/
+      /*USAGE*/
       struct stop_clock var;
       time_stock(&var, 1, 12); /* System defined 12hr clock */
 
@@ -53,6 +56,7 @@ The last argument of the time_clock, specifies the clock format. This program on
       var->day = 1;
       time_stock(&var, 0, 24); /* User-defined 24hr clock */
       }
+```
 ### OTHER FUNCTIONS
 
 ####   WEEK_ROTATE
