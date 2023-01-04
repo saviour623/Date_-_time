@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #define hour_12(x, y)(y = x > 12 ? x - 12 : x )
-#define UNUSED void(*)(x)
+#define UNUSED(x) void(x)
 #define ST_LINE "\e[1;1H\e[2J"
 #define clr() fprintf(stdout, ST_LINE) /* clear screen */
 #define reset(x) (x = (x > 7) ? 1 : x)
