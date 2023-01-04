@@ -30,31 +30,30 @@ void time_clock(struct stop_clock *, const int, const int);
 void week_rotate(int, int, int rot[]);
 void watch_alarm(struct alarm *);
 void time_stamp(int, int, int, int);
-char *week_days(int, int rot[], char *);
+char *week_days(int, int rot[]);
 int week_set(int , int , int );
 char *check_month(int, size_t *);
 int day_div(int);
 
-char *week_days(int x, int rot[], char *str){
+char *week_days(int x, int rot[]){
 	if (x == rot[0])
-		str = "Sun";
+		return "Sun";
 	else if (x == rot[1])
-		str = "Mon";
+		return"Mon";
 	else if (x == rot[2])
-		str = "Tue";
+		return "Tue";
 	else if (x == rot[3])
-		str = "Wed";
+		return "Wed";
 	else if (x == rot[4])
-		str = "Thu";
+		return "Thu";
 	else if (x == rot[5])
-		str = "Fri";
+		return "Fri";
 	else if (x == rot[6])
-		str = "Sat";
+		return "Sat";
 	else {
 		fprintf(stderr, "[error]: Invalid input for \"day\"!\n");
 		exit(EXIT_FAILURE);
 	}
-	return str;
 }
 /* Check momth */
 char *check_month(int check_nt, size_t *x){
@@ -104,7 +103,7 @@ char *check_month(int check_nt, size_t *x){
 /* divide days of month to week days */
 int day_div(int day){
 	int i;
-	for (i = 0; i < 4; i++){
+	for (i = 0; i < 5; i++){
 		if (!(day < 7 || day == 7))
 			day -= 7;
 	}
@@ -129,13 +128,13 @@ int week_set(int d, int m, int y){
 	return ((y / 4) + (y + d) + (key[m - 1] + 6)) % 7;
 }
 /* time function */
-void time_clock(struct stop_clock *tp, const int def, const int clock_type){
+void time_clock(struct stop_clock *tp, const int def, const int clock_fmt){
 
 	char *lp;
 	lp = " ";
 	char *s;
 	char *month_str;
-	char *day_str = "";
+	char *day_str;
 	size_t month_ays[2];
 	size_t day_count = 1; /* Count days in month */
 	int year, month;
@@ -146,6 +145,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 
 	int i;
 	clr();
+
 	printf("Setting time");
 	for (i = 0; i < 3; i++){
 		putchar('.');
@@ -154,7 +154,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 	}
 	putchar('\n');
 
-	if (!(clock_type == 12 || clock_type == 24)){
+	if (!(clock_fmt == 12 || clock_fmt == 24)){
 		fprintf(stderr, "[error]: Invalid clock type!\n");
 		exit(EXIT_FAILURE);
 	}
@@ -196,7 +196,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 	int temp = week_set(1, month, week_check_yr);
 	week_rotate(temp - 1, 7, rot);
 	day = day_div(day);
-	day_str = week_days(day, rot, day_str);
+	day_str = week_days(day, rot);
 
 	for (; month <= 12; month++){
 		month_str = check_month(month, month_ays);
@@ -207,8 +207,8 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 		}
 
 		for (; hour < 24; hour++){
-			hour_type = clock_type == 12 ? 0 : hour;
-			if (clock_type == 12){
+			hour_type = clock_fmt == 12 ? 0 : hour;
+			if (clock_fmt == 12){
 				hour_12(hour, hour_type);
 			}
 			s = (hour > 11) ? "PM" : "AM";
@@ -233,7 +233,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 				}
 				if (day_count != *month_ays){
 					day += 1, reset(day);
-				day_str = week_days(day, rot, day_str);
+					day_str = week_days(day, rot);
 					day_count += 1;
 					hour = -1;
 				}
@@ -244,7 +244,7 @@ void time_clock(struct stop_clock *tp, const int def, const int clock_type){
 			year += 1;
 			month = 0;
 		}
-		day_str = week_days(day, rot, day_str);
+		day_str = week_days(day, rot);
 	}
 }
 
@@ -292,7 +292,7 @@ void watch_alarm(struct alarm *al){
 			}
 			printf("| %02d : %02d : %02d |", hour, mins, secs);
 			fflush(stdout);
-			usleep(980000);
+			sleep(1);
 			if (secs == 59){
 				mins += 1;
 				secs = -1;
