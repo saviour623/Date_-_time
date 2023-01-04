@@ -25,13 +25,13 @@ Time setting is collected using a predefined struct "stop_clock" of format:-
 	A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function.
 
 ## TIME_CLOCK
-###### __prototype: void time_clock(struct stop_clock *, const int, const int);__
+###### _Prototype: void time_clock(struct stop_clock *, const int, const int);_
 
 The time_clock function accepts three arguments of types struct *, const int and  const int.
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
 Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing 0 (initialize user-defined time) or 1 (initialize system time which uses default device local time) as the next argument of time_clock function.
 #### Note :-
-*	The value of the above argument must either be 1 or 0 else behaviour of time_clock will be undefined.*
+	The value of the above argument must either be 1 or 0 else behaviour of time_clock will be undefined.
 The last argument of the time_clock, specifies the clock type. This program only identifies two clock format, 12hr & 24hr clock format, which could be specified by passing either 12 or 24 to the parameter.
 #### Note :-
 *	Any other value aside the ones specified above will incur an error message and terminate the program.
