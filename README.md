@@ -4,7 +4,7 @@ This is a Simple C header program that set and run time and date independently o
 
 ### STOP_CLOCK
 #### Prototype:
-  ``` C 
+  ``` C
 struct stop_clock {
 	int secs;
 	int mins;
@@ -21,25 +21,28 @@ int mins;
 int hour;
 int year;
 int month;
-int day; 
+int day;
 ```
 <div align="left"> A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function. </div>
 
 ## TIME_CLOCK
 ``` C
- void time_clock(struct stop_clock *, const int, const int);_ 
+ void time_clock(struct stop_clock *, const int, const int);
 ```
 
-The time_clock function accepts three arguments of types ==struct *==, ==const int == and  == const int ==.
+The time_clock function accepts three arguments of types ` struct * `, ` const int ` and ` const int `.
+
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
-Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing 0 (initialize user-defined time) or 1 (initialize system time which uses default device local time) as the next argument of time_clock function.
+
+Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing ` 0 ` (initialize user-defined time) or ` 1 ` (initialize system time which uses default device local time) as the next argument of time_clock function.
 #### Note :-
-* The value of the above argument must either be == 1 == or == 0 == else behaviour of time_clock will be undefined. ***
-The last argument of the time_clock, specifies the clock format. This program only identifies two clock format, 12hr & 24hr clock format, which could be specified by passing either 12 or 24 to the parameter.
+* The value of the above argument must either be ` 1 ` or ` 0 ` else behaviour of time_clock will be undefined.
+***
+The last argument of the time_clock, specifies the clock format. This program only identifies two clock format, ` 12hr & 24hr clock format `, which could be specified by passing either ` 12 ` or ` 24 ` to the parameter.
 #### Note :-
 *	Any other value aside the ones specified above will incur an error message and terminate the program.
-*	The time_clock considers leap years in date. In output, the character, 'x' is attached to the end of the value, year, to signify that it is a leap year.
-*	The user-defined value for year must range from 2000 and above. Threfore, any input below 2000 will incur program error and terminate consecutively.
+*	The time_clock considers leap years in date. In output, the character, ` x ` is attached to the end of the value, year, to signify that it is a leap year.
+*	The user-defined value for year must range from ` 2000, ... `. Threfore, any input below 2000 will incur program error and terminate consecutively.
 ***
 
 ``` C {
@@ -59,45 +62,57 @@ The last argument of the time_clock, specifies the clock format. This program on
 ```
 ### OTHER FUNCTIONS
 
-####   WEEK_ROTATE
-######  prototype:
-	void week_rotate(int, int, int rot[]);
-      This function basically rotates an array. week_rotate is used to reshuffle week_days according to changes in month. e.g if tuesday is the last day of january, i.e, 31st, the array of week days(1...7) will be rotated to make the next day(wednesday) the 1st day of the week of the next month.
-      First argument of the week_rotate function takes in n number of times to rotate array (usually the last day of the month in week positíon).
-      The second argument of the function takes in the length of the array, while the last argument takes in the array (array of weeks) to be rotated.
--     DAY_DIV
-      prototype:
-	int day_div(int);
+1. #### WEEK_ROTATE
+``` C
+void week_rotate(int, int, int rot[]);
+```
+This function basically rotates an array of integers. week_rotate is used to reshuffle week_days according to changes in month. e.g if tuesday is the last day of january, i.e, 31st, the array of week days(1...7) will be rotated to make the next day(wednesday) the 1st day of the week of the next month.
+>     First argument of the week_rotate function takes in ` n ` number of times to rotate array (usually the last day of the month in week positíon).
+>     The second argument of the function takes in the length of the array.
+>     The last argument takes in the address of the array (array of weeks) to be rotated.
+
+2. #### DAY_DIV
+```C
+int day_div(int);
+```
       This function takes in an argument, precisely day in month(1...28/29/30/31), and returns the value of day in week(1...7).
-      Note: Interpretation of the returned value depends on the first day of the week of the month.
 
--     WEEK_SET
-      prototype:
-	int week_set(int , int , int );
-     The week_set function takes in three argumemt in the order of day(1...28/29/30/,31), month(1...12) and year(last two digit of year starting from year 2000) and returns the current day of the wéek of the provided date.
+` Note: ` Interpretation of the returned value depends on the first day of the week of the month.
 
--    WEEK_DAY
-     prototype:
-      char *week_days(int, int rot[]);
-     The week_days function takes in three argument in order of; 1. day in weeks(1...7); 2. array of weeks arranged according to first day of the week of the month; and returns a pointer to the  week day in strings.
+3. ####  WEEK_SET
+``` C
+int week_set(int , int , int );
+```
+     The week_set function takes in three argumemt in the order of; ` day(1...28/29/30/,31) `, ` month(1...12) ` and ` year(last two digit of year starting from year 2000) ` and returns the current day of the wéek of the provided date.
 
--    CHECK_MONTH
-     prototype:
-	char *check_month(int, size_t *);
-     This function takes in the position of month(1...12) and an empty pointer and returns a pointer to the current month in strings. Also the empty pointer passed will be initialized with the total days the specified month has (leap year excluded).
+4.    WEEK_DAY
+``` C
+char *week_days(int, int rot[]);
+```
+     The week_days function takes in two argument in order of; ` day in weeks(1...7) `, ` array of weeks arranged according to first day of the week of the month ` and returns a pointer to the  week day in strings.
 
--    WATCH_ALARM
-     prototype:
-       void watch_alarm(struct alarm *);
-     The watch_alarm function sets a simple clock that exit at a specific user-defined time. The watch_alarm only accepts a single argument of type struct alarm*, i.e, a pointer to struct. The struct is already pre-defined and should only be used to define a variable of its struct type.
+5. #### CHECK_MONTH
+``` C
+char *check_month(int, size_t *);
+```
+     This function takes the position of month(1...12) and the address of an empty pointer and returns a pointer to the current month in strings. Also the empty pointer passed through the function  will be initialized with the total days the specified month has (leap year excluded).
+
+6. #### WATCH_ALARM
+``` C
+void watch_alarm(struct alarm *);
+```
+     The watch_alarm function sets a simple clock that exits at a specific user-defined time. The watch_alarm only accepts the address of a single argument of type ` struct alarm `. The struct is already pre-defined and should only be used to declare a variable whose address is to be passed to the watch_alarm function.
+''' C
      /* struct prototype */
-     struct alarm {
+      struct alarm {
 	int mins;
 	int hour;
 	char *msg;
-};
-     Passing a variable declared with a user-defined struct type as argument to watch_alarm, aside the program-defined structure type would result in an abnormal behaviour of the program and possibly invoke an unexpected termination of the program.
+     };
+```
 
+` Note: ` Passing a variable to the watch_alarm function, which is declared with a user-defined struct type aside the program's defined structure type, would result in an abnormal behaviour of the program and possibly invoke an unexpected termination of the program.
+``` C
 /* USAGE */
    	 struct alarm var;
 	 var->mins = 0;
@@ -105,10 +120,11 @@ The last argument of the time_clock, specifies the clock format. This program on
 	 var->msg = "Alarm label";
 	 watch_alarm(&var);
 /*...*/
+```
 
-
-GENERAL INFO:
+## GENERAL INFO:
 -	Note that this program could be system/compiler dependent (Successfully compiled with gcc/ARM 64bit/ubuntu 14 O.S). However, this could be resolved by simple modification to the provided source code.
 -	The precision of the outputed time at runtime may be dalayed by several milliseconds compared to the actual system time due to changes in timezone, redundancy in execution of program or incorrect system date and time(as program is completely dependent on the system's localtime, i.e, if specified by user).
 
-Author: Michael Saviour
+Author: (github.com/saviour623)
+Contact: saviourme33@gmail.com
