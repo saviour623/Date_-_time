@@ -2,8 +2,8 @@
 This is a Simple C header program that set and run time and date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
 Note: In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
 
-##STOP_CLOCK
-        ###prototype:
+## STOP_CLOCK
+        #### prototype:
 	struct stop_clock {
 	int secs;
 	int mins;
@@ -23,9 +23,9 @@ Time setting is collected using a predefined struct "stop_clock" of format:\
 
 	A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function.
 
-##TIME_CLOCK:
-####prototype:
-####     void time_clock(struct stop_clock *, const int, const int);
+## TIME_CLOCK:
+#### prototype:
+#####    void time_clock(struct stop_clock *, const int, const int);
 
 The time_clock function accepts three arguments of types struct *, const int and  const int.
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
