@@ -1,28 +1,29 @@
-#	           CLI_SYS_TIME.H
+# <div align="center"> CLI_SYS_TIME.H </div>
 This is a Simple C header program that set and run time and date independently on the CLI using user-defined time or system default time(local time) as specified by the user.
 Note: In order to use this features, this header must be present in the current directory and manually added to the C program as a user defined header.
 
 ### STOP_CLOCK
 #### prototype:
-	struct stop_clock {
+	```C
+        struct stop_clock {
 	int secs;
 	int mins;
 	int hour;
 	int year;
 	int month;
 	int day;
-	};
+	}; ```
 
 Time setting is collected using a predefined struct "stop_clock" of format:-
-         
+        ``` 
 	int secs;
 	int mins;
 	int hour;
 	int year;
 	int month;
-	int day;
+	int day; ```
 
-	A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function.
+<div align="left"> A variable of type "struct stop_clock" is defined and it's address is passed as an argument to time_clock function. </div>
 
 ## TIME_CLOCK
 ###### _Prototype: void time_clock(struct stop_clock *, const int, const int);_
@@ -31,14 +32,17 @@ The time_clock function accepts three arguments of types struct *, const int and
 The first argument is a pointer to struct, which points to the address of a predefined struct type (stop_clock) variable which must be passed as an argument when time_clock is called.
 Struct members could be initialized with specific user-defined time and date or could be left uninitialized, i.e if user prefers to use the system's default time. This is specified by passing 0 (initialize user-defined time) or 1 (initialize system time which uses default device local time) as the next argument of time_clock function.
 #### Note :-
-	The value of the above argument must either be 1 or 0 else behaviour of time_clock will be undefined.
-The last argument of the time_clock, specifies the clock type. This program only identifies two clock format, 12hr & 24hr clock format, which could be specified by passing either 12 or 24 to the parameter.
+*      The value of the above argument must either be 1 or 0 else behaviour of time_clock will be undefined.
+The last argument of the time_clock, specifies the clock type. ***
+This program only identifies two clock format, 12hr & 24hr clock format, which could be specified by passing either 12 or 24 to the parameter.
 #### Note :-
 *	Any other value aside the ones specified above will incur an error message and terminate the program.
 *	The time_clock considers leap years in date. In output, the character, 'x' is attached to the end of the value, year, to signify that it is a leap year.
 *	The user-defined value for year must range from 2000 and above. Threfore, any input below 2000 will incur program error and terminate consecutively.
+***
 
-/*USAGE*/
+``` C {
+     /*USAGE*/
       struct stop_clock var;
       time_stock(&var, 1, 12); /* System defined 12hr clock */
 
@@ -50,6 +54,7 @@ The last argument of the time_clock, specifies the clock type. This program only
       var->month = 1;
       var->day = 1;
       time_stock(&var, 0, 24); /* User-defined 24hr clock */
+      } ```
 ### OTHER FUNCTIONS
 
 ####   WEEK_ROTATE
