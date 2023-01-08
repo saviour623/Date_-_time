@@ -45,7 +45,7 @@ The last argument of the time_clock, specifies the clock format. This program on
 ` Note :- `
 *	Any other value aside the ones specified above will incur an error message and terminate the program.
 *	The time_clock considers leap years in date. In output, the character, ` x ` is attached to the end of the value, year, to signify that it is a leap year.
-*	The user-defined value for year must range from ` 2000, ... `. Threfore, any input below 2000 will incur program error and terminate consecutively.
+*	The initializing value for year must range from ` 2000, ... `. Threfore, any input below 2000 will incur program error and terminate consecutively.
 ***
 
 ``` C {
