@@ -63,44 +63,6 @@ The last argument of the time_clock, specifies the clock format. This program on
       time_clock(&var, 0, 24); /* User-defined 24hr clock */
       }
 ```
-### OTHER FUNCTIONS
-
- #### WEEK_ROTATE
-``` C
-void week_rotate(int, int, int rot[]);
-```
-This function basically rotates an array of integers. week_rotate is used to reshuffle week_days according to changes in month. e.g if tuesday is the last day of january, i.e, 31st, the array of week days(1...7) will be rotated to make the next day(wednesday) the 1st day of the week of the next month.
-*     First argument of the week_rotate function takes in ` n ` number of times to rotate array (usually the last day of the month in week positíon).
-*     The second argument of the function takes in the length of the array.
-*     The last argument takes in the address of the array (array of weeks) to be rotated.
-***
-
- #### DAY_DIV
-```C
-int day_div(int);
-```
-      This function takes in an argument, precisely day in month(1...28/29/30/31), and returns the value of day in week(1...7).
-
-` Note: ` Interpretation of the returned value depends on the first day of the week of the month.
-
-####  WEEK_SET
-``` C
-int week_set(int , int , int );
-```
-     The week_set function takes in three argumemt in the order of; ` day(1...28/29/30/,31) `, ` month(1...12) ` and ` year(last two digit of year starting from year 2000) ` and returns the current day of the wéek of the provided date.
-
-#### WEEK_DAY
-``` C
-char *week_days(int, int rot[]);
-```
-     The week_days function takes in two argument in order of; ` day in weeks(1...7) `, ` array of weeks arranged according to first day of the week of the month ` and returns a pointer to the  week day in strings.
-
-#### CHECK_MONTH
-``` C
-char *check_month(int, size_t *);
-```
-     This function takes the position of month(1...12) and the address of an empty pointer and returns a pointer to the current month in strings. Also the empty pointer passed through the function  will be initialized with the total days the specified month has (leap year excluded).
-
 #### WATCH_ALARM
 ``` C
 void watch_alarm(struct alarm *);
